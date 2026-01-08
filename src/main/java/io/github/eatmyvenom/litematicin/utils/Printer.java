@@ -581,10 +581,30 @@ public class Printer {
 		toX = Math.min(toX, (int) mc.player.getX() + rangeX);
 		toY = Math.min(toY, (int) mc.player.getY() + rangeY);
 		toZ = Math.min(toZ, (int) mc.player.getZ() + rangeZ);
+		
+		// sort by nearest BlockPos to player pos
+        // TODO: Also bad efficiency but better user experience when walking
+		java.util.List<BlockPos> positions = new java.util.ArrayList<>();
 		for (int y = fromY; y <= toY; y++) {
 			for (int x = fromX; x <= toX; x++) {
 				for (int z = fromZ; z <= toZ; z++) {
-					if (interact >= maxInteract) {
+					positions.add(new BlockPos(x, y, z));
+				}
+			}
+		}
+
+		positions.sort((pos1, pos2) -> {
+			double dist1 = pos1.getSquaredDistance(mc.player.getX(), mc.player.getY(), mc.player.getZ());
+			double dist2 = pos2.getSquaredDistance(mc.player.getX(), mc.player.getY(), mc.player.getZ());
+			return Double.compare(dist1, dist2);
+		});
+
+		for (BlockPos pos : positions) {
+			int x = pos.getX();
+			int y = pos.getY();
+			int z = pos.getZ();
+			
+			if (interact >= maxInteract) {
 						if (shouldSleepLonger) {
 							shouldSleepLonger = false;
 							lastPlaced = Math.max(lastPlaced, new Date().getTime() + PRINTER_SLEEP_STACK_EMPTIED.getIntegerValue());
@@ -608,7 +628,7 @@ public class Printer {
 						continue;
 					}
 
-					BlockPos pos = new BlockPos(x, y, z);
+					//BlockPos pos = new BlockPos(x, y, z);
 					if (PRINTER_ALLOW_INVENTORY_OPERATIONS.getBooleanValue() && io.github.eatmyvenom.litematicin.utils.InventoryUtils.hasItemInSchematic(world, pos)) {
 						MessageHolder.sendUniqueMessageAlways("Inventory in " + pos.toShortString() + " has Item inside!");
 					}
@@ -1448,9 +1468,6 @@ public class Printer {
 					} else {
 						MessageHolder.sendUniqueMessage(mc.player, sBlock.getTranslationKey() + " can't be picked !!");
 					}
-				}
-			}
-
 		}
 
 		if (interact > 0) {
