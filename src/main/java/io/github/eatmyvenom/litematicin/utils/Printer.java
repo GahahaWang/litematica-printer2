@@ -2813,7 +2813,7 @@ public class Printer {
 	}
 
 	public static void cacheEasyPlacePosition(BlockPos pos, boolean useClicked) {
-        cacheEasyPlacePosition(pos, useClicked, useClicked ? EASY_PLACE_CACHE_TIME.getIntegerValue() : 2800000);
+        cacheEasyPlacePosition(pos, useClicked, EASY_PLACE_CACHE_TIME.getIntegerValue());
 	}
 
 	public static void cacheEasyPlacePosition(BlockPos pos, boolean useClicked, int miliseconds) {
