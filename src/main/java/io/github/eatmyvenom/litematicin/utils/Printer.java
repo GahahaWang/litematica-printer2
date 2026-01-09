@@ -2813,27 +2813,12 @@ public class Printer {
 	}
 
 	public static void cacheEasyPlacePosition(BlockPos pos, boolean useClicked) {
-		PositionCache item = new PositionCache(pos, System.nanoTime(), useClicked ? EASY_PLACE_CACHE_TIME.getIntegerValue() * 1000000L : 2800000000L);
-		// TODO: Create a separate cache for clickable items, as this just makes
-		// duplicates
-		if (useClicked) {
-			item.hasClicked = true;
-		}
-		Pair<Long, Boolean> entry = new Pair<>(pos.asLong(), useClicked);
-		if (positionCache.containsKey(entry)) {
-			PositionCache value = positionCache.get(entry);
-			if (item.timeout > value.timeout) {
-				positionCache.put(entry, item);
-			}
-		} else {
-			positionCache.put(entry, item);
-		}
+        cacheEasyPlacePosition(pos, useClicked, useClicked ? EASY_PLACE_CACHE_TIME.getIntegerValue() : 2800000);
 	}
 
 	public static void cacheEasyPlacePosition(BlockPos pos, boolean useClicked, int miliseconds) {
 		PositionCache item = new PositionCache(pos, System.nanoTime(), miliseconds * 1000000L);
-		// TODO: Create a separate cache for clickable items, as this just makes
-		// duplicates
+		// Create a separate cache for clickable items, as this just makes
 		if (useClicked) {
 			item.hasClicked = true;
 		}
