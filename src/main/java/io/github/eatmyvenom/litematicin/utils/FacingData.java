@@ -43,6 +43,9 @@ public class FacingData{
 		addFD(DoorBlock.class, new FacingData(1, false));
 		addFD(BedBlock.class, new FacingData(1, false));
 		addFD(FenceGateBlock.class, new FacingData(1, false));
+        //#if MC>=12000
+        //$$ addFD(CalibratedSculkSensorBlock.class, new FacingData(1, false));
+        //#endif
 
 		// Horizontal directions, reverse of what player is facing
 		addFD(TrapdoorBlock.class, new FacingData(1, true)); //actually it is used when side is not horizontal
