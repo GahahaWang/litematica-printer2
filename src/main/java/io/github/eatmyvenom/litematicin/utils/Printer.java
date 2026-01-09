@@ -1343,12 +1343,12 @@ public class Printer {
 									}
 								}
 								continue;
-							} else { //Only end rod.
-								if (blockSchematic instanceof EndRodBlock) {
+							} else { // end rod and lightning rod extends rodblock
+								if (blockSchematic instanceof RodBlock) {
 									if (doSchematicWorldPickBlock(mc, stateSchematic, pos)) {
 										cacheEasyPlacePosition(pos, false);
 										interactBlock(mc, new BlockHitResult(Vec3d.ofCenter(pos),
-											stateSchematic.get(EndRodBlock.FACING), pos, false)); //place block
+											stateSchematic.get(RodBlock.FACING), pos, false)); //place block
 										io.github.eatmyvenom.litematicin.utils.InventoryUtils.decrementCount(isCreative);
 										interact++;
 										sleepWhenRequired(mc);
