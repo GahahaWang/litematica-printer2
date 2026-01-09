@@ -32,10 +32,12 @@ public class FacingData{
 		addFD(PistonBlock.class, new FacingData(0, true));
 		addFD(DispenserBlock.class, new FacingData(0, true));
 		addFD(DropperBlock.class, new FacingData(0, true));
+        addFD(RodBlock.class, new FacingData(0, true));
 
 		// All directions, normal direction of player
 		addFD(ObserverBlock.class, new FacingData(0, false));
 		addFD(AbstractRailBlock.class, new FacingData(0, false));
+
 		// Horizontal directions, normal direction
 		addFD(StairsBlock.class, new FacingData(1, false));
 		addFD(DoorBlock.class, new FacingData(1, false));
